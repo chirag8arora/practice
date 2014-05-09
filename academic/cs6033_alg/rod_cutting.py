@@ -25,6 +25,9 @@ def modified_rod_cutting(p, c, n):
 if __name__ == '__main__':
     p = [0, 10, 1, 0]
     c = [0, 20, 0]
-    n = 4
+    p = [1, 5, 8, 9, 10, 17, 17, 20, 24, 30]
+    c = [1, 1, 2, 0,  2,  7,  5,  2,  1, 0]
+
+    n = 7
     print origin_rod_cutting(p, n)
     print modified_rod_cutting(p, c, n)

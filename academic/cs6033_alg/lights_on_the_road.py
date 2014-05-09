@@ -10,5 +10,5 @@ def main(S, K):
     return light_count
 
 if __name__ == '__main__':
-    print main([2, 4, 6, 7, 9], 4)
+    print main([2, 4, 6, 7, 9], 3)
     print main([1, 2, 3, 8, 9], 2)

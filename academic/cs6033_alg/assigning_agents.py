@@ -18,6 +18,7 @@ def main(agents, tasks, budget):
     tasks = sorted(tasks)
     agents = sorted(agents)
     assignment = []
+
     while tasks:
         task = tasks.pop(0)
         while agents:
@@ -27,7 +28,7 @@ def main(agents, tasks, budget):
                 budget -= agent
                 break
         if budget < 0:
-            break
+            return False
     if len(assignment) == tasks_count:
         return assignment
     else:
@@ -48,5 +49,5 @@ if __name__ == '__main__':
     #     tasks.append(Task(difficulty))
     agents = [1, 2, 2, 3, 5, 7, 15, 20]
     tasks = [2, 4, 3, 6, 2]
-    budget = 20
+    budget = 19
     print main(agents, tasks, budget)
