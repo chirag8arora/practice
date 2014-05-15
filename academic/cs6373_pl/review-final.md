@@ -29,7 +29,9 @@
 
 #####7. Define binding and binding time.
 
-> A binding in a program is an association of an attribute with a program component such as an identifier or a symbol. For example the data type of the value of a variable is an attribute that is associated with the variable name. The binding time for an attribute is the time at which the binding occurs. For example, in C the binding time for a variable type is when the program is compiled (because the type cannot be changed without changing and recompiling the program), but the value of the variable is not bound until the program executes (that is, the value of the variable can change during execution).
+> - A binding in a program is an association of an attribute with a program component such as an identifier or a symbol. For example the data type of the value of a variable is an attribute that is associated with the variable name.
+
+> - The binding time for an attribute is the time at which the binding occurs. For example, in C the binding time for a variable type is when the program is compiled (because the type cannot be changed without changing and recompiling the program), but the value of the variable is not bound until the program executes (that is, the value of the variable can change during execution).
 
 #####8. After language design and implementation [what are the four times bindings can take place in a program?]
 
