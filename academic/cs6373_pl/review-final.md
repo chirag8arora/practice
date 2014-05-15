@@ -3,44 +3,35 @@
 ## Section 1
 #####1. What are the design issues for names?
 
-
 > - case sensitive
 
 > - reserve words or keywords
 
 #####2. What is the potential danger of case-sensitive names?
 
-
 > using the wrong variable with very similar name
 
 #####3. In what way are reserved words better than keywords?
-
 
 > Reserved words are better than keywords because the redeﬁnition of keywords can be confusing, but not on reserved words.
 
 #####4. What is an alias?
 
-
 > Variables when more than one variable name can be used to access the same memory location.
 
-
 #####5. What category of C++ reference variables is always aliases?
-
 
 > Union types. Union is a type whose variables may store different type values at different times during program execution.
 
 #####6. What is the l-value of a variable? What is the r-value?
 
-
 > l-value = address, r-value = value itself
 
 #####7. Define binding and binding time.
 
-
 > A binding in a program is an association of an attribute with a program component such as an identifier or a symbol. For example the data type of the value of a variable is an attribute that is associated with the variable name. The binding time for an attribute is the time at which the binding occurs. For example, in C the binding time for a variable type is when the program is compiled (because the type cannot be changed without changing and recompiling the program), but the value of the variable is not bound until the program executes (that is, the value of the variable can change during execution).
 
 #####8. After language design and implementation [what are the four times bindings can take place in a program?]
-
 
 > - ? language design time – bind operator symbols to operations
 
@@ -56,11 +47,9 @@
 
 #####9. Define static binding and dynamic binding.
 
-
 > A static binding is  if it first occurs before run time and remains unchanged throughout program execution. A dynamic binding is if it first occurs during execution or can change during execution of the program.
 
 #####10. What are the advantages and disadvantages of implicit declarations?
-
 
 > - Advantages: Simple in naming conventions. In this case, the compiler or interpreter binds a variable to a type based on the syntactic form of the variable’s name.
 
@@ -68,14 +57,11 @@
 
 #####11. What are the advantages and disadvantages of dynamic type binding?
 
-
 > - Advantages, It is more easy to write generic code.
 
 > - Disadvantages, High Cost to check type and interpretation
 
-
 #####12. Define static, stack-dynamic, explicit heap-dynamic, and implicit heap-dynamic variables. What are their advantages and disadvantages?
-
 
 > Static: bound to memory cells before execution begins and remains bound to the same memory cell throughout the execution.(for example, using ‘static’ to deﬁne a variable in C, static int i = 1;)
 
@@ -87,7 +73,6 @@
 
 #####13. Define lifetime, scope, static scope, and dynamic scope.
 
-
 > Lifetime: the lifetime of a variable is the period of time beginning when the method is entered and ending when execution of the method terminates.!
 
 > Scope: the scope of a variable is the range of statements over which the variable is visible.!
@@ -98,11 +83,9 @@
 
 #####14. How is reference to a nonlocal variable in a static-scoped program connected to its definition?
 
-
 > Definition must be within a static ancestor (enclosing static scope).
 
 #####15. What is the general problem with static scoping?
-
 
 > Usually too much access. Scope structure destroyed as pgm evolves.
 
@@ -110,18 +93,15 @@
 
 #####1. What is a descriptor?
 
-
 > A descriptor is the collection of the attributes of a variable. It is convenient, both logically and concretely, to think of variables in terms of descriptors.
 
 #####2. What are the advantages and disadvantages of decimal data types?
-
 
 > Decimal data types store a fixed number of decimal digits, with the decimal point at a fixed position in the value.  Decimal types have the advantage of being able to precisely store decimal values, at least those within a restricted range, which cannot be done with floating-point.
 
 > The disadvantages of decimal types are that the range of values is restricted because no exponents are allowed, and their representation in memory is wasteful.
 
 #####3. What are the design issues for character string types?
-
 
 > A character string type is one in which the values consist of sequences of characters.  The two most important design issues that are specific to character string types are the following:
 
@@ -130,7 +110,6 @@ Should strings have static or dynamic length?
 
 #####4. Describe the three string length options.
 
-
 > A static length string is a string whose length is static and set when the string is created.
 
 > A limited dynamic length string is a string that has a varying length up to a declared and fixed maximum set by the variable’s definition.  Such string variables can store any number of characters between zero and the maximum.
@@ -138,7 +117,6 @@ Should strings have static or dynamic length?
 > A dynamic length string is a string that has a varying length and no maximum.  This option requires the overhead of dynamic storage allocation and deallocation but provides maximum flexibility.
 
 #####5. Define ordinal, enumeration, and subrange types.
-
 
 > An ordinal type is one in which the range of possible values can be easily associated with the set of positive integers.  In Java, for example, the primitive ordinal types are integer, char, and boolean.
 
@@ -149,11 +127,9 @@ enum days {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 
 #####6. What are the advantages of user-defined enumeration types?
 
-
 > Enumeration types can provide advantages in both readability and reliability.  Readability is enhanced in a very direct way.  Named values are easily recognized, whereas coded values are not.  In the area of reliability, the enumeration types of Ada, C#, and Java 5.0 provide two advantages.  First, no arithmetic operations are legal on enumeration types.  Second, no enumeration variable can be assigned a value outside its defined range.
 
 #####7. In what ways are the user-defined enumeration types of C# more reliable than those of C++?
-
 
 > The enumeration types in C# are better than those of C++, because enumeration type variables in C# are never coerced to integer types
 
@@ -174,7 +150,6 @@ enum days {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 > What kinds of slices are allowed, if any?
 
 #####9. Define static, fixed static-dynamic, stack-dynamic, fixed heap-dynamic, and heap-dynamic arrays. What are the advantages of each?
-
 
 > A static array is one in which the subscript ranges are statically bound and storage allocation is static (done before run time).  The advantage of static arrays is efficiency:  No dynamic allocation or deallocation is required.
 
