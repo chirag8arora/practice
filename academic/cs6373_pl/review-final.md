@@ -33,17 +33,17 @@
 
 #####8. After language design and implementation [what are the four times bindings can take place in a program?]
 
-> - ? language design time – bind operator symbols to operations
-
-> - ? language implementation time – bind floating point type to a representation
-
-> - ? writing time
-
 > - compile time - bind a variable to a type in C or Java
 
 > - load time - bind a C or C++ static variable to a memory cell
 
+> - link time
+
 > - run-time - bind a non-static local variable to a memory cell
+
+> - (FYI) language design time – bind operator symbols to operations
+
+> - (FYI) language implementation time – bind floating point type to a representation
 
 #####9. Define static binding and dynamic binding.
 
