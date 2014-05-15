@@ -63,23 +63,23 @@
 
 #####12. Define static, stack-dynamic, explicit heap-dynamic, and implicit heap-dynamic variables. What are their advantages and disadvantages?
 
-> Static: bound to memory cells before execution begins and remains bound to the same memory cell throughout the execution.(for example, using ‘static’ to deﬁne a variable in C, static int i = 1;)
+> - Static: bound to memory cells before execution begins and remains bound to the same memory cell throughout the execution.(for example, using ‘static’ to deﬁne a variable in C, static int i = 1;)
 
-> Stack-dynamic: storage bindings are created for variables when their declaration statements are elaborated. (For example, the variable declarations that appear at the beginning of a Java method are elaborated when the method is called and the variables deﬁned by those declarations are deallocated when the method completes its execution.)
+> - Stack-dynamic: storage bindings are created for variables when their declaration statements are elaborated. (For example, the variable declarations that appear at the beginning of a Java method are elaborated when the method is called and the variables deﬁned by those declarations are deallocated when the method completes its execution.)
 
-> Explicit heap-dynamic: allocated and deallocated by explicit directives, speciﬁed by the programmer, which take effect during execution. (for example, using ‘new’ to deﬁne a variable in JAVA, List l = new ArrayList<String>();)
+> - Explicit heap-dynamic: allocated and deallocated by explicit directives, speciﬁed by the programmer, which take effect during execution. (for example, using ‘new’ to deﬁne a variable in JAVA, List l = new ArrayList<String>();)
 
-> Implicit heap-dynamic: Allocation and deallocation caused by assignment statements. (for example, highs = [74, 84, 86, 90, 71];)
+> - Implicit heap-dynamic: Allocation and deallocation caused by assignment statements. (for example, highs = [74, 84, 86, 90, 71];)
 
 #####13. Define lifetime, scope, static scope, and dynamic scope.
 
-> Lifetime: the lifetime of a variable is the period of time beginning when the method is entered and ending when execution of the method terminates.!
+> - Lifetime: the lifetime of a variable is the period of time beginning when the method is entered and ending when execution of the method terminates.!
 
-> Scope: the scope of a variable is the range of statements over which the variable is visible.!
+> - Scope: the scope of a variable is the range of statements over which the variable is visible.!
 
-> Static scope: static scope is binding names to non-local variables.!
+> - Static scope: static scope is binding names to non-local variables.!
 
-> Dynamic scope: Dynamic scoping is based on the calling sequence of subprograms, not on their spatial relationship to each other. Thus, the scope can be determined only at run time.!
+> - Dynamic scope: Dynamic scoping is based on the calling sequence of subprograms, not on their spatial relationship to each other. Thus, the scope can be determined only at run time.!
 
 #####14. How is reference to a nonlocal variable in a static-scoped program connected to its definition?
 
@@ -97,33 +97,35 @@
 
 #####2. What are the advantages and disadvantages of decimal data types?
 
-> Decimal data types store a fixed number of decimal digits, with the decimal point at a fixed position in the value.  Decimal types have the advantage of being able to precisely store decimal values, at least those within a restricted range, which cannot be done with floating-point.
+> - Decimal data types store a fixed number of decimal digits, with the decimal point at a fixed position in the value.
 
-> The disadvantages of decimal types are that the range of values is restricted because no exponents are allowed, and their representation in memory is wasteful.
+> - Decimal types have the advantage of being able to precisely store decimal values, at least those within a restricted range, which cannot be done with floating-point.
+
+> - The disadvantages of decimal types are that the range of values is restricted because no exponents are allowed, and their representation in memory is wasteful.
 
 #####3. What are the design issues for character string types?
 
-> A character string type is one in which the values consist of sequences of characters.  The two most important design issues that are specific to character string types are the following:
+> - A character string type is one in which the values consist of sequences of characters.  The two most important design issues that are specific to character string types are the following:
 
-> Should strings be simply a special kind of character array or a primitive type (with no array-style subscripting operations)?
+> - Should strings be simply a special kind of character array or a primitive type (with no array-style subscripting operations)?
 Should strings have static or dynamic length?
 
 #####4. Describe the three string length options.
 
-> A static length string is a string whose length is static and set when the string is created.
+> - A static length string is a string whose length is static and set when the string is created.
 
-> A limited dynamic length string is a string that has a varying length up to a declared and fixed maximum set by the variable’s definition.  Such string variables can store any number of characters between zero and the maximum.
+> - A limited dynamic length string is a string that has a varying length up to a declared and fixed maximum set by the variable’s definition.  Such string variables can store any number of characters between zero and the maximum.
 
-> A dynamic length string is a string that has a varying length and no maximum.  This option requires the overhead of dynamic storage allocation and deallocation but provides maximum flexibility.
+> - A dynamic length string is a string that has a varying length and no maximum.  This option requires the overhead of dynamic storage allocation and deallocation but provides maximum flexibility.
 
 #####5. Define ordinal, enumeration, and subrange types.
 
-> An ordinal type is one in which the range of possible values can be easily associated with the set of positive integers.  In Java, for example, the primitive ordinal types are integer, char, and boolean.
+> - An ordinal type is one in which the range of possible values can be easily associated with the set of positive integers.  In Java, for example, the primitive ordinal types are integer, char, and boolean.
 
-> An enumeration type is one in which all of the possible values, which are named constants, are provided in the definition.  Enumeration types provide a way of defining and grouping collections of name constants, which are called enumeration constants.  An example in C#:
+> - An enumeration type is one in which all of the possible values, which are named constants, are provided in the definition.  Enumeration types provide a way of defining and grouping collections of name constants, which are called enumeration constants.  An example in C#:
 enum days {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 
-> A subrange type is a contiguous subsequence of an ordinal type.
+> - A subrange type is a contiguous subsequence of an ordinal type.
 
 #####6. What are the advantages of user-defined enumeration types?
 
@@ -135,31 +137,31 @@ enum days {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 
 #####8. What are the design issues for arrays?
 
-> What types are legal for subscripts?
+> - What types are legal for subscripts?
 
-> Are subscripting expressions in element references range-checked?
+> - Are subscripting expressions in element references range-checked?
 
-> When are subscript ranges bound?
+> - When are subscript ranges bound?
 
-> When does array allocation take place?
+> - When does array allocation take place?
 
-> Are ragged or rectangular multidimensioned arrays allowed, or both?
+> - Are ragged or rectangular multidimensioned arrays allowed, or both?
 
-> Can arrays be initialized when they have their storage allocated?
+> - Can arrays be initialized when they have their storage allocated?
 
-> What kinds of slices are allowed, if any?
+> - What kinds of slices are allowed, if any?
 
 #####9. Define static, fixed static-dynamic, stack-dynamic, fixed heap-dynamic, and heap-dynamic arrays. What are the advantages of each?
 
-> A static array is one in which the subscript ranges are statically bound and storage allocation is static (done before run time).  The advantage of static arrays is efficiency:  No dynamic allocation or deallocation is required.
+> - A static array is one in which the subscript ranges are statically bound and storage allocation is static (done before run time).  The advantage of static arrays is efficiency:  No dynamic allocation or deallocation is required.
 
-> A fixed stack-dynamic array is one in which the subscript ranges are statically bound, but the allocation is done at declaration elaboration time during execution.  The advantage of fixed stack-dynamic arrays over static arrays is space efficiency.
+> - A fixed stack-dynamic array is one in which the subscript ranges are statically bound, but the allocation is done at declaration elaboration time during execution.  The advantage of fixed stack-dynamic arrays over static arrays is space efficiency.
 
-> A stack-dynamic array is one in which the subscript ranges are dynamically bound and the storage allocation is dynamic (done during run time).  One the subscript ranges are bound and the storage is allocated, however, they remain fixed during the lifetime of the variable.  The advantage of stack-dynamic arrays over static and fixed stack-dynamic arrays is flexibility.  The size of an array need not be known until the array is about to be used.
+> - A stack-dynamic array is one in which the subscript ranges are dynamically bound and the storage allocation is dynamic (done during run time).  One the subscript ranges are bound and the storage is allocated, however, they remain fixed during the lifetime of the variable.  The advantage of stack-dynamic arrays over static and fixed stack-dynamic arrays is flexibility.  The size of an array need not be known until the array is about to be used.
 
-> A fixed heap-dynamic array is similar to the fixed stack-dynamic array, in that the subscript ranges are dynamically bound and the storage binding is dynamic, but they are fixed after storage is allocated.  The differences are that the bindings are done when the user program requests them, rather than at elaboration time, and the storage is allocated from the heap, rather than the stack.  Assumption (not stated in text):  The advantage of fixed heap-dynamic arrays is space efficiency.
+> - A fixed heap-dynamic array is similar to the fixed stack-dynamic array, in that the subscript ranges are dynamically bound and the storage binding is dynamic, but they are fixed after storage is allocated.  The differences are that the bindings are done when the user program requests them, rather than at elaboration time, and the storage is allocated from the heap, rather than the stack.  Assumption (not stated in text):  The advantage of fixed heap-dynamic arrays is space efficiency.
 
-> A heap-dynamic array is one in which the binding of subscript ranges and storage allocation is dynamic and can change any number of times during the array’s lifetime.  The advantage of heap-dynamic arrays over the others is flexibility.
+> - A heap-dynamic array is one in which the binding of subscript ranges and storage allocation is dynamic and can change any number of times during the array’s lifetime.  The advantage of heap-dynamic arrays over the others is flexibility.
 
 ## Problem sets
 
