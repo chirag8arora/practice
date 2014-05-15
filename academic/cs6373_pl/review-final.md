@@ -13,7 +13,7 @@
 
 #####3. In what way are reserved words better than keywords?
 
-> Reserved words are better than keywords because the redeﬁnition of keywords can be confusing, but not on reserved words.
+> Reserved words are better than keywords because the redefinition of keywords can be confusing, but not on reserved words.
 
 #####4. What is an alias?
 
@@ -53,7 +53,7 @@
 
 #####10. What are the advantages and disadvantages of implicit declarations?
 
-> - Advantages: Simple in naming conventions. In this case, the compiler or interpreter binds a variable to a type based on the syntactic form of the variable’s name.
+> - Advantages: Simple in naming conventions. In this case, the compiler or interpreter binds a variable to a type based on the syntactic form of the variable's name.
 
 > - Disadvantages: Although they are a minor convenience to programmers, implicit declarations can be detrimental to reliability because they prevent the compilation process from detecting some typographical and programmer errors.
 
@@ -65,11 +65,11 @@
 
 #####12. Define static, stack-dynamic, explicit heap-dynamic, and implicit heap-dynamic variables. What are their advantages and disadvantages?
 
-> - Static: bound to memory cells before execution begins and remains bound to the same memory cell throughout the execution.(for example, using ‘static’ to deﬁne a variable in C, static int i = 1;)
+> - Static: bound to memory cells before execution begins and remains bound to the same memory cell throughout the execution.(for example, using 'static' to define a variable in C, static int i = 1;)
 
-> - Stack-dynamic: storage bindings are created for variables when their declaration statements are elaborated. (For example, the variable declarations that appear at the beginning of a Java method are elaborated when the method is called and the variables deﬁned by those declarations are deallocated when the method completes its execution.)
+> - Stack-dynamic: storage bindings are created for variables when their declaration statements are elaborated. (For example, the variable declarations that appear at the beginning of a Java method are elaborated when the method is called and the variables defined by those declarations are deallocated when the method completes its execution.)
 
-> - Explicit heap-dynamic: allocated and deallocated by explicit directives, speciﬁed by the programmer, which take effect during execution. (for example, using ‘new’ to deﬁne a variable in JAVA, List l = new ArrayList<String>();)
+> - Explicit heap-dynamic: allocated and deallocated by explicit directives, specified by the programmer, which take effect during execution. (for example, using 'new' to define a variable in JAVA, List l = new ArrayList<String>();)
 
 > - Implicit heap-dynamic: Allocation and deallocation caused by assignment statements. (for example, highs = [74, 84, 86, 90, 71];)
 
@@ -100,23 +100,19 @@
 #####2. What are the advantages and disadvantages of decimal data types?
 
 > - Decimal data types store a fixed number of decimal digits, with the decimal point at a fixed position in the value.
-
 > - Decimal types have the advantage of being able to precisely store decimal values, at least those within a restricted range, which cannot be done with floating-point.
-
 > - The disadvantages of decimal types are that the range of values is restricted because no exponents are allowed, and their representation in memory is wasteful.
 
 #####3. What are the design issues for character string types?
 
-> - A character string type is one in which the values consist of sequences of characters.  The two most important design issues that are specific to character string types are the following:
-
 > - Should strings be simply a special kind of character array or a primitive type (with no array-style subscripting operations)?
-Should strings have static or dynamic length?
+> - Should strings have static or dynamic length?
 
 #####4. Describe the three string length options.
 
 > - A static length string is a string whose length is static and set when the string is created.
 
-> - A limited dynamic length string is a string that has a varying length up to a declared and fixed maximum set by the variable’s definition.  Such string variables can store any number of characters between zero and the maximum.
+> - A limited dynamic length string is a string that has a varying length up to a declared and fixed maximum set by the variable's definition.  Such string variables can store any number of characters between zero and the maximum.
 
 > - A dynamic length string is a string that has a varying length and no maximum.  This option requires the overhead of dynamic storage allocation and deallocation but provides maximum flexibility.
 
@@ -135,7 +131,7 @@ enum days {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 
 #####7. In what ways are the user-defined enumeration types of C# more reliable than those of C++?
 
-> The enumeration types in C# are better than those of C++, because enumeration type variables in C# are never coerced to integer types
+> Because enumeration type variables in C# are never coerced to integer types
 
 #####8. What are the design issues for arrays?
 
@@ -163,7 +159,7 @@ enum days {Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 
 > - A fixed heap-dynamic array is similar to the fixed stack-dynamic array, in that the subscript ranges are dynamically bound and the storage binding is dynamic, but they are fixed after storage is allocated.  The differences are that the bindings are done when the user program requests them, rather than at elaboration time, and the storage is allocated from the heap, rather than the stack.  Assumption (not stated in text):  The advantage of fixed heap-dynamic arrays is space efficiency.
 
-> - A heap-dynamic array is one in which the binding of subscript ranges and storage allocation is dynamic and can change any number of times during the array’s lifetime.  The advantage of heap-dynamic arrays over the others is flexibility.
+> - A heap-dynamic array is one in which the binding of subscript ranges and storage allocation is dynamic and can change any number of times during the array's lifetime.  The advantage of heap-dynamic arrays over the others is flexibility.
 
 ## Problem sets
 
