@@ -2,28 +2,46 @@
 
 #####R2. What are the two most important network-layer functions in a datagram network? What are the three most important network-layer functions in a virtual-circuit network?
 
-- forwarding
-- Routing
-- + Call setup in VC
+- Datagram-based network layer: forwarding; routing. Additional function of VC-based network layer: call setup.
 
 #####R9. Describe how packet loss can occur at input ports. Describe how packet loss at input ports can be eliminated (without using infinite buffers).
+
+- If the rate at which packets arrive to the fabric exceeds switching fabric rate, then packets will need to queue at the input ports. If this rate mismatch persists, the queues will get larger and larger and eventually overflow the input port buffers, causing packet loss. Packet loss can be eliminated if the switching fabric speed is at least n times as fast as the input line speed, where n is the number of input ports.
 
 
 #####R10. Describe how packet loss can occur at output ports. Can this loss be prevented by increasing the switch fabric speed?
 
+- Assuming input and output line speeds are the same, packet loss can still occur if the rate at which packets arrive to a single output port exceeds the line speed. If this rate mismatch persists, the queues will get larger and larger and eventually overflow the output port buffers, causing packet loss. Note that increasing switch fabric speed cannot prevent this problem from occurring.
+
+
 #####R13. What is the 32-bit binary equivalent of the IP address 223.1.3.27?
+
+- 11011111 00000001 00000011 00011011.
 
 #####P2. Consider a virtual-circuit network. Suppose the VC number is an 8-bit field.
 - a. What is the maximum number of virtual circuits that can be carried over a link?
 - b. Suppose a central node determines paths and VC numbers at connection setup. Suppose the same VC number is used on each link along the VC’s path. Describe how the central node might determine the VC number at connection setup. Is it possible that there are fewer VCs in progress than the maximum as determined in part (a) yet there is no common free VC number?
 - c. Suppose that different VC numbers are permitted in each link along a VC’s path. During connection setup, after an end-to-end path is determined, describe how the links can choose their VC numbers and configure their forwarding tables in a decentralized manner, without reliance on a central node.
 
+- Maximum number of VCs over a link 2**8 = 256.
+- The centralized node could pick any VC number which is free from the set {0,1,…,2**8-1}. In this manner, it is not possible that there are fewer VCs in progress than 256 without there being any common free VC number.
+- Each of the links can independently allocate VC numbers from the set {0,1,…,2**8-1}. Thus, a VC will likely have a different VC number for each link along its path. Each router in the VC’s path must replace the VC number of each arriving packet with the VC number associated with the outbound link.
+
 #####P21. Consider the network setup in Figure 4.22. Suppose that the ISP instead assigns the router the address 24.34.112.235 and that the network address of the home network is 192.168.1/24.
 - a. Assign addresses to all interfaces in the home network.
-- b. Suppose each host has two ongoing TCP connections, all to port 80 at
-host 128.119.40.86. Provide the six corresponding entries in the NAT translation table.
+- b. Suppose each host has two ongoing TCP connections, all to port 80 at host 128.119.40.86. Provide the six corresponding entries in the NAT translation table.
 
 #####P26. Consider the following network. With the indicated link costs, use Dijkstra’s shortest-path algorithm to compute the shortest path from x to all network nodes. Show how the algorithm works by computing a table similar to Table 4.3.
+```
+Step N’ D(t),p(t) D(u),p(u) D(v),p(v) D(w),p(w) D(y),p(y) D(z),p(z)
+0 x ∞ ∞ 3,x 6,x 6,x 8,x
+1 xv 7,v 6,v 3,x 6,x 6,x 8,x
+2 xvu 7,v 6,v 3,x 6,x 6,x 8,x
+3 xvuw 7,v 6,v 3,x 6,x 6,x 8,x
+4 xvuwy 7,v 6,v 3,x 6,x 6,x 8,x
+5 xvuwyt 7,v 6,v 3,x 6,x 6,x 8,x
+6 xvuwytz 7,v 6,v 3,x 6,x 6,x 8,x
+```
 
 #####P28. Consider the network shown below, and assume that each node initially knows the costs to each of its neighbors. Consider the distance-vector algorithm and show the distance table entries at node z.
 
