@@ -1,17 +1,86 @@
 var controllers = angular.module('myApp.controllers', []);
 controllers.controller('Question1', function($scope, $http) {
+    // d3
+    var margin = {
+            top: 20,
+            right: 20,
+            bottom: 30,
+            left: 40
+        },
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select(".q1").append('svg')
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    $scope.render = function(dataset) {
+        svg.selectAll('*').remove();
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+
+        x.domain(dataset.map(function(d, i) {
+            if (i == 26) return '?';
+            return String.fromCharCode(65 + i);
+        }));
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+
+        y.domain([0, d3.max(dataset, function(d) {
+            return d;
+        }) + 2]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Count");
+
+        svg.selectAll(".bar")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) {
+                if (i == 26) return x('?');
+                return x(String.fromCharCode(65 + i));
+            })
+            .attr("y", function(d) {
+                return y(d); //Height minus data value
+            })
+            .attr("width", x.rangeBand())
+            .attr("height", function(d) {
+                return height - y(d);
+            });
+    }
     $scope.search = function(userSearchKey) {
         var url = 'https://api.angel.co/1/search?query=' + userSearchKey + '&type=User&callback=JSON_CALLBACK';
         $http({
             method: 'JSONP',
             url: url
         }).success(function(data, status, header, config) {
-            $('.q1 svg').remove();
-            var counter = 0;
             var dataset = Array.apply(null, new Array(27)).map(Number.prototype.valueOf, 0);
-            data.forEach(function(user) {
-                counter++;
-                if (counter > 5) return;
+            data.slice(0, Math.min(data.length, 5)).forEach(function(user) {
                 for (var i = 0; i < user.name.length; i++) {
                     var charCode = user.name.charCodeAt(i);
                     if (charCode <= 122 && charCode >= 97) {
@@ -23,76 +92,7 @@ controllers.controller('Question1', function($scope, $http) {
                     }
                 }
             });
-
-            // d3
-            var margin = {
-                    top: 20,
-                    right: 20,
-                    bottom: 30,
-                    left: 40
-                },
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
-
-            var x = d3.scale.ordinal()
-                .rangeRoundBands([0, width], .1);
-
-            var y = d3.scale.linear()
-                .range([height, 0]);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom");
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-
-            var svg = d3.select(".q1").append('svg')
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-            x.domain(dataset.map(function(d, i) {
-                if (i == 26) return '?';
-                return String.fromCharCode(65 + i);
-            }));
-            y.domain([0, d3.max(dataset, function(d) {
-                return d;
-            }) + 2]);
-
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
-
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .text("Count");
-
-            svg.selectAll(".bar")
-                .data(dataset)
-                .enter()
-                .append("rect")
-                .attr("x", function(d, i) {
-                    if (i == 26) return x('?');
-                    return x(String.fromCharCode(65 + i));
-                })
-                .attr("y", function(d) {
-                    return y(d); //Height minus data value
-                })
-                .attr("width", x.rangeBand())
-                .attr("height", function(d) {
-                    return height - y(d);
-                });
+            $scope.render(dataset);
         });
     };
 }).controller('Question2', function($scope, $http) {
