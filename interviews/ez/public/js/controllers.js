@@ -2,13 +2,13 @@ var controllers = angular.module('myApp.controllers', []);
 controllers.controller('Question1', function($scope, $http) {
     // d3 variables
     var margin = {
-            top: 20,
-            right: 20,
-            bottom: 30,
+            top: 80,
+            right: 40,
+            bottom: 20,
             left: 40
         },
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 810,
+        height = 460;
 
     var svg = d3.select(".q1").append('svg')
         .attr("width", width + margin.left + margin.right)
@@ -16,8 +16,12 @@ controllers.controller('Question1', function($scope, $http) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    function intToChar(i) {
+        if (i == 26) return '?';
+        return String.fromCharCode(97 + i);
+    }
 
-    $scope.render = function(dataset) {
+    $scope.render = function(dataset, userSearchKey) {
         // remove previous items before render
         svg.selectAll('*').remove();
 
@@ -28,8 +32,7 @@ controllers.controller('Question1', function($scope, $http) {
         var x = d3.scale.ordinal()
             .rangeRoundBands([0, width], .1)
             .domain(dataset.map(function(d, i) {
-                if (i == 26) return '?';
-                return String.fromCharCode(65 + i);
+                return intToChar(i);
             }));
 
         var y = d3.scale.linear()
@@ -46,6 +49,22 @@ controllers.controller('Question1', function($scope, $http) {
             .scale(y)
             .orient("left")
 
+
+        // add title and helpinfo
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "24px")
+            .text("Static of " + userSearchKey)
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 4))
+            .attr("text-anchor", "middle")
+            .text("Mouse on bars to see details");
+
+
+        // add x y axis
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
@@ -67,8 +86,7 @@ controllers.controller('Question1', function($scope, $http) {
             .enter()
             .append("rect")
             .attr("x", function(d, i) {
-                if (i == 26) return x('?');
-                return x(String.fromCharCode(65 + i));
+                return x(intToChar(i));
             })
             .attr("y", function(d) {
                 return y(d);
@@ -77,9 +95,17 @@ controllers.controller('Question1', function($scope, $http) {
             .attr("width", x.rangeBand())
             .attr("height", function(d) {
                 return height - y(d);
+            })
+            .append("title")
+            .text(function(d, i) {
+                return intToChar(i) + ' occurs: ' + d + ' times';
             });
     }
     $scope.search = function(userSearchKey) {
+        // set default
+        userSearchKey = userSearchKey || 'barack';
+
+        // call the api
         var url = 'https://api.angel.co/1/search?query=' + userSearchKey + '&type=User&callback=JSON_CALLBACK';
         $http({
             method: 'JSONP',
@@ -104,8 +130,8 @@ controllers.controller('Question1', function($scope, $http) {
                     }
                 }
             });
-            // call the render function
-            $scope.render(dataset);
+            // call the render function // send userSearchKey for title
+            $scope.render(dataset, userSearchKey);
         });
     };
 }).controller('Question2', function($scope, $http) {
@@ -173,6 +199,7 @@ controllers.controller('Question1', function($scope, $http) {
         }
 
         // start moving particles
+        var counter = 0;
         while (true) {
             // initial a result buffer and empty_flag
             var current_state = '';
@@ -184,13 +211,15 @@ controllers.controller('Question1', function($scope, $http) {
                     // the graph is not empty
                     // and assign a X to this position
                     empty_flag = false;
-                    current_state += 'X';
+                    current_state += 'x';
                 } else {
                     // position i is neither in left nor in right
                     // assign a . to this position
                     current_state += '.';
                 }
             }
+            current_state += ' ' + counter;
+            counter++;
             // put this current state to the result array
             $scope.result.push(current_state);
             // if empty_flag is true, means no particle in the graph, should break

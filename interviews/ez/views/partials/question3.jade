@@ -12,9 +12,10 @@ h2 Particles
                 p &nbsp;
                 button.btn.btn-primary Go
 
-        ul.list-unstyled
-            li(ng-repeat="err in errs") {{err}}
-
-        div(style='text-align:center')
+        div(style='text-align:center;font-family: monospace;margin:100px 0;font-size:36px')
+            b(ng-if='result') Result
+            b(ng-if='errs') Errors
+            ul.list-unstyled
+                li(ng-repeat="err in errs") {{err}}
             ul.list-unstyled
                 li(ng-repeat="row in result") {{row}}
