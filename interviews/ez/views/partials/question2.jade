@@ -1,0 +1,7 @@
+h2 Get Missing Letters
+.q2
+    .input-group
+        input(ng-model='sentence', type='text', class='form-control', placeholder='Type a sentence')
+        span.input-group-btn
+            button.btn.btn-primary(ng-click='get_missing_letters(sentence)') Check
+    h4 What is missing in this sentence: {{missing || ''}}

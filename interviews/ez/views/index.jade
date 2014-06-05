@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    .navbar.navbar-default.navbar-fixed-top(ng-controller="navCtrl")
+        .container
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='/') EquityZen Test
+            .collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    li(ng-class="navClass('question1')")
+                        a(href='/#/question1') Question1
+                    li(ng-class="navClass('question2')")
+                        a(href='/#/question2') Question2
+                    li(ng-class="navClass('question3')")
+                        a(href='/#/question3') Question3
+    .container(ng-view)

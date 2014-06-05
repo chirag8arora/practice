@@ -1,5 +1,5 @@
 var controllers = angular.module('myApp.controllers', []);
-controllers.controller('HomeCtrl', function($scope, $http) {
+controllers.controller('Question1', function($scope, $http) {
     $scope.search = function(userSearchKey) {
         var url = 'https://api.angel.co/1/search?query=' + userSearchKey + '&type=User&callback=JSON_CALLBACK';
         $http({
@@ -95,6 +95,7 @@ controllers.controller('HomeCtrl', function($scope, $http) {
                 });
         });
     };
+}).controller('Question2', function($scope, $http) {
     $scope.get_missing_letters = function(sentence) {
         var dataset = Array.apply(null, new Array(26)).map(Number.prototype.valueOf, 0);
         for (var i = 0; i < sentence.length; i++) {
@@ -112,6 +113,7 @@ controllers.controller('HomeCtrl', function($scope, $http) {
             }
         });
     };
+}).controller('Question3', function($scope, $http) {
     $scope.result = [];
     $scope.go = function(step, initial) {
         $scope.result = [];
@@ -156,4 +158,11 @@ controllers.controller('HomeCtrl', function($scope, $http) {
             console.log(state);
         }
     };
-});
+}).controller('navCtrl', ['$scope', '$location',
+    function($scope, $location) {
+        $scope.navClass = function(page) {
+            var currentRoute = $location.path().substring(1) || 'question1';
+            return page === currentRoute ? 'active' : '';
+        };
+    }
+]);;

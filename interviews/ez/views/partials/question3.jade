@@ -1,0 +1,12 @@
+h2 Particles
+.q3
+    .row
+        .col-sm-2
+            input(ng-model='step', type='text', class='form-control', placeholder='input the speed')
+        .col-sm-9
+            input(ng-model='initial', type='text', class='form-control', placeholder='input the initial state')
+        .col-sm-1
+            button.btn.btn-primary(ng-click='go(step, initial)') Go
+        div(style='text-align:center')
+            ul.list-unstyled
+                li(ng-repeat="row in result") {{row}}
