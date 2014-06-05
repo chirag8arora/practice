@@ -18,29 +18,33 @@ controllers.controller('Question1', function($scope, $http) {
 
 
     $scope.render = function(dataset) {
+        // remove previous items before render
         svg.selectAll('*').remove();
+
+        // edge case
+        if (!dataset) return;
+
+        // setup x, y
         var x = d3.scale.ordinal()
-            .rangeRoundBands([0, width], .1);
+            .rangeRoundBands([0, width], .1)
+            .domain(dataset.map(function(d, i) {
+                if (i == 26) return '?';
+                return String.fromCharCode(65 + i);
+            }));
 
+        var y = d3.scale.linear()
+            .range([height, 0])
+            .domain([0, d3.max(dataset, function(d) {
+                return d;
+            }) + 2]);
 
-        x.domain(dataset.map(function(d, i) {
-            if (i == 26) return '?';
-            return String.fromCharCode(65 + i);
-        }));
-
+        // setup xAxis and yAxis
         var xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom");
-        var y = d3.scale.linear()
-            .range([height, 0]);
-
         var yAxis = d3.svg.axis()
             .scale(y)
             .orient("left")
-
-        y.domain([0, d3.max(dataset, function(d) {
-            return d;
-        }) + 2]);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -57,6 +61,7 @@ controllers.controller('Question1', function($scope, $http) {
             .style("text-anchor", "end")
             .text("Count");
 
+        //create the rectangles
         svg.selectAll(".bar")
             .data(dataset)
             .enter()
@@ -68,6 +73,7 @@ controllers.controller('Question1', function($scope, $http) {
             .attr("y", function(d) {
                 return y(d); //Height minus data value
             })
+            .attr('fill', 'orange')
             .attr("width", x.rangeBand())
             .attr("height", function(d) {
                 return height - y(d);
