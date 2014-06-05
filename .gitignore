@@ -42,3 +42,7 @@ nosetests.xml
 .pydevproject
 academic/cs6373_pl/review-final.html
 academic/cs6373_pl/result.log
+
+
+# nodejs
+node_modules
