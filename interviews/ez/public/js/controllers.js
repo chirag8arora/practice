@@ -1,6 +1,6 @@
 var controllers = angular.module('myApp.controllers', []);
 controllers.controller('Question1', function($scope, $http) {
-    // d3
+    // d3 variables
     var margin = {
             top: 20,
             right: 20,
@@ -71,7 +71,7 @@ controllers.controller('Question1', function($scope, $http) {
                 return x(String.fromCharCode(65 + i));
             })
             .attr("y", function(d) {
-                return y(d); //Height minus data value
+                return y(d);
             })
             .attr('fill', 'orange')
             .attr("width", x.rangeBand())
@@ -85,37 +85,52 @@ controllers.controller('Question1', function($scope, $http) {
             method: 'JSONP',
             url: url
         }).success(function(data, status, header, config) {
+            // init an int[27] to count characters
             var dataset = Array.apply(null, new Array(27)).map(Number.prototype.valueOf, 0);
             data.slice(0, Math.min(data.length, 5)).forEach(function(user) {
+                // slice [0:5] to do the statistic
                 for (var i = 0; i < user.name.length; i++) {
+                    // for loop each name
                     var charCode = user.name.charCodeAt(i);
                     if (charCode <= 122 && charCode >= 97) {
+                        // a-z
                         dataset[charCode - 97] += 1;
                     } else if (charCode <= 90 && charCode >= 65) {
+                        // A-Z
                         dataset[charCode - 65] += 1;
                     } else {
+                        // Others
                         dataset[26] += 1;
                     }
                 }
             });
+            // call the render function
             $scope.render(dataset);
         });
     };
 }).controller('Question2', function($scope, $http) {
     $scope.get_missing_letters = function(sentence) {
-        sentence = sentence||'';
+        // set default
+        sentence = sentence || '';
+        $scope.missing = ''
+
+        // an int[26] to count characters
         var dataset = Array.apply(null, new Array(26)).map(Number.prototype.valueOf, 0);
         for (var i = 0; i < sentence.length; i++) {
             var charCode = sentence.charCodeAt(i);
             if (charCode <= 122 && charCode >= 97) {
+                // a-z
                 dataset[charCode - 97] += 1;
             } else if (charCode <= 90 && charCode >= 65) {
+                // A-Z
                 dataset[charCode - 65] += 1;
             }
         }
-        $scope.missing = ''
+        // iterate int[26] array, 0 means missing char
         dataset.forEach(function(d, i) {
             if (d == 0) {
+                // add this to missing buffer
+                // here use an array, then join should be better
                 $scope.missing += String.fromCharCode(97 + i);
             }
         });
