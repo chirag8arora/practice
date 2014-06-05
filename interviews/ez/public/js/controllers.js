@@ -8,7 +8,7 @@ controllers.controller('Question1', function($scope, $http) {
             left: 40
         },
         width = 810,
-        height = 460;
+        height = 300;
 
     var svg = d3.select(".q1").append('svg')
         .attr("width", width + margin.left + margin.right)
@@ -22,9 +22,6 @@ controllers.controller('Question1', function($scope, $http) {
     }
 
     $scope.render = function(dataset, userSearchKey) {
-        // remove previous items before render
-        svg.selectAll('*').remove();
-
         // edge case
         if (!dataset) return;
 
@@ -102,9 +99,12 @@ controllers.controller('Question1', function($scope, $http) {
             });
     }
     $scope.search = function(userSearchKey) {
+        // remove previous items before render
+        svg.selectAll('*').remove();
+        // show loading
+        $('.spinner').show();
         // set default
         userSearchKey = userSearchKey || 'barack';
-
         // call the api
         var url = 'https://api.angel.co/1/search?query=' + userSearchKey + '&type=User&callback=JSON_CALLBACK';
         $http({
@@ -132,6 +132,9 @@ controllers.controller('Question1', function($scope, $http) {
             });
             // call the render function // send userSearchKey for title
             $scope.render(dataset, userSearchKey);
+            $('.spinner').hide();
+        }).error(function(){
+            $('.spinner').hide();
         });
     };
 }).controller('Question2', function($scope, $http) {
@@ -144,11 +147,9 @@ controllers.controller('Question1', function($scope, $http) {
         var dataset = Array.apply(null, new Array(26)).map(Number.prototype.valueOf, 0);
         for (var i = 0; i < sentence.length; i++) {
             var charCode = sentence.charCodeAt(i);
-            if (charCode <= 122 && charCode >= 97) {
-                // a-z
+            if (charCode <= 122 && charCode >= 97) { // a-z
                 dataset[charCode - 97] += 1;
-            } else if (charCode <= 90 && charCode >= 65) {
-                // A-Z
+            } else if (charCode <= 90 && charCode >= 65) { // A-Z
                 dataset[charCode - 65] += 1;
             }
         }
