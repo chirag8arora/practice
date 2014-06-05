@@ -7,6 +7,7 @@
         "jquery": "latest",
         "angular": "latest",
         "angular-route": "latest",
+        "angular-animate": "latest",
         "angular-bootstrap": "latest"
     }
 }

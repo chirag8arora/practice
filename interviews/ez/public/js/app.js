@@ -4,6 +4,7 @@
 
 angular.module('myApp', [
     'ngRoute',
+    // 'ngAnimate',
     'myApp.controllers'
 ]).config(function($routeProvider) {
     $routeProvider.

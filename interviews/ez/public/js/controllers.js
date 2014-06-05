@@ -103,6 +103,7 @@ controllers.controller('Question1', function($scope, $http) {
     };
 }).controller('Question2', function($scope, $http) {
     $scope.get_missing_letters = function(sentence) {
+        sentence = sentence||'';
         var dataset = Array.apply(null, new Array(26)).map(Number.prototype.valueOf, 0);
         for (var i = 0; i < sentence.length; i++) {
             var charCode = sentence.charCodeAt(i);
@@ -121,47 +122,77 @@ controllers.controller('Question1', function($scope, $http) {
     };
 }).controller('Question3', function($scope, $http) {
     $scope.result = [];
+    $scope.errs = [];
     $scope.go = function(step, initial) {
+        // clear previous errs and result;
+        $scope.errs = [];
         $scope.result = [];
-        state = {
+
+        // set default parameters
+        step = step || 1;
+        initial = initial || 'R....';
+
+        // validate the input
+        var reg = /^\d+$/;
+        if (!reg.test(step)) {
+            $scope.errs.push('The step must be integer');
+        }
+        reg = /^[.LR]+$/;
+        if (!reg.test(initial)) {
+            $scope.errs.push('The initial state can only have ".", "L", "R"');
+        }
+        if ($scope.errs.length > 0) return;
+
+        // initial state for counters of left and right
+        // for example ..LRR... => state = {left: [2], right:[3,4]}
+        var state = {
             left: [],
             right: []
         }
         for (var i = 0; i < initial.length; i++) {
             if (initial.charAt(i) == 'L') {
-                state.left.push(i);
+                state.left.push(i); // add the index to state.left
             } else if (initial.charAt(i) == 'R') {
-                state.right.push(i);
+                state.right.push(i); // add the index to state.left
             }
         }
-        // var counter = 0;
-        while (true) {
 
+        // start moving particles
+        while (true) {
+            // initial a result buffer and empty_flag
             var current_state = '';
             var empty_flag = true;
+            // dump the state to a result string, '..LR..' -> '..XX..'
             for (var i = 0; i < initial.length; i++) {
                 if (state.left.indexOf(i) >= 0 || state.right.indexOf(i) >= 0) {
+                    // position i is in either left or right array
+                    // the graph is not empty
+                    // and assign a X to this position
                     empty_flag = false;
                     current_state += 'X';
                 } else {
+                    // position i is neither in left nor in right
+                    // assign a . to this position
                     current_state += '.';
                 }
             }
+            // put this current state to the result array
             $scope.result.push(current_state);
-            // break;
+            // if empty_flag is true, means no particle in the graph, should break
             if (empty_flag) break;
-            // counter += 1;
-            // if (counter >= 4) break;
-            // move
+
+
+            // move the particles for next time inteval
             state.left.forEach(function(l, i) {
                 state.left[i] = l - parseInt(step);
+                // out of boundry, set to null
                 if (state.left[i] < 0) state.left[i] = null;
             });
             state.right.forEach(function(r, i) {
                 state.right[i] = parseInt(r) + parseInt(step);
+                // out of boundry, set to null
                 if (state.right[i] >= initial.length) state.right[i] = null;
             });
-            console.log(state);
         }
     };
 }).controller('navCtrl', ['$scope', '$location',
