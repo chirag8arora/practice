@@ -1,10 +1,7 @@
 h2 Get Missing Letters
 .q2
-    form(ng-submit='get_missing_letters(sentence)')
-        .input-group
-            input(ng-model='sentence', type='text', class='form-control', placeholder='Type a sentence, then press Enter')
-            span.input-group-btn
-                button.btn.btn-success Check
+    input(ng-model='sentence', type='text', class='form-control', placeholder='Type a sentence', ng-change='get_missing_letters(sentence)')
     hr
-    p What is missing in this sentence:
-    p {{missing || ''}}
+    h3(ng-if='!missing && sentence') This sentence is completed
+    h3(ng-if='missing').text-danger What is missing in this sentence:
+    h3.text-danger {{missing || ''}}
