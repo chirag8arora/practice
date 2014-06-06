@@ -7,7 +7,7 @@ controllers.controller('Question1', function($scope, $http) {
             bottom: 20,
             left: 40
         },
-        width = 810,
+        width = $('.q1').width() - margin.left - margin.right,
         height = 300;
 
     var svg = d3.select(".q1").append('svg')
@@ -21,7 +21,27 @@ controllers.controller('Question1', function($scope, $http) {
         return String.fromCharCode(97 + i);
     }
 
-    $scope.render = function(dataset, userSearchKey) {
+    $scope.getElementDimensions = function() {
+        return $('.q1').width()
+    };
+
+    $scope.$watch($scope.getElementDimensions, function(newValue, oldValue) {
+        console.log(newValue);
+        d3.select('.q1 svg').attr("width", newValue)
+        $scope.render();
+    }, true);
+
+    $(window).bind('resize', function() {
+        $scope.$apply();
+    });
+
+    $scope.render = function() {
+        // init
+        var dataset = $scope.dataset;
+        // responsive width
+        var width = $('.q1').width() - margin.left - margin.right;
+        // remove previous items before render
+        svg.selectAll('*').remove();
         // edge case
         if (!dataset) return;
 
@@ -53,7 +73,7 @@ controllers.controller('Question1', function($scope, $http) {
             .attr("y", 0 - (margin.top / 2))
             .attr("text-anchor", "middle")
             .style("font-size", "24px")
-            .text("Static of " + userSearchKey)
+            .text("Static of " + $scope.userSearchKey)
         svg.append("text")
             .attr("x", (width / 2))
             .attr("y", 0 - (margin.top / 4))
@@ -82,13 +102,13 @@ controllers.controller('Question1', function($scope, $http) {
             .data(dataset)
             .enter()
             .append("rect")
+            .attr("class", "bar")
             .attr("x", function(d, i) {
                 return x(intToChar(i));
             })
             .attr("y", function(d) {
                 return y(d);
             })
-            .attr('fill', 'orange')
             .attr("width", x.rangeBand())
             .attr("height", function(d) {
                 return height - y(d);
@@ -99,8 +119,6 @@ controllers.controller('Question1', function($scope, $http) {
             });
     }
     $scope.search = function(userSearchKey) {
-        // remove previous items before render
-        svg.selectAll('*').remove();
         // show loading
         $('.spinner').show();
         // set default
@@ -131,9 +149,10 @@ controllers.controller('Question1', function($scope, $http) {
                 }
             });
             // call the render function // send userSearchKey for title
-            $scope.render(dataset, userSearchKey);
+            $scope.dataset = dataset;
+            $scope.render();
             $('.spinner').hide();
-        }).error(function(){
+        }).error(function() {
             $('.spinner').hide();
         });
     };

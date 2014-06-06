@@ -1,18 +1,45 @@
 body {
-  padding: 70px;
+  padding: 100px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+
+/* style for d3*/
+.bar {
+  fill: #1abc9c;
+}
+
+.bar:hover {
+  fill: #34495e;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+/* style for loading */
 .spinner {
-  display:none;
-  margin: 100px auto;
-  width: 100px;
-  height: 60px;
-  text-align: center;
+  display: none;
   font-size: 10px;
+  height: 60px;
+  margin: 100px auto;
+  text-align: center;
+  width: 100px;
 }
 
 .spinner > div {

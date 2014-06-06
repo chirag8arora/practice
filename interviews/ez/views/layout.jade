@@ -1,16 +1,20 @@
 doctype
-html(ng-app="myApp")
+html(ng-app="myApp", lang="en")
   head
-    title= title
+    meta(charset="utf8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Equity Zen Programming Test Questions
     link(rel='stylesheet', href='/js/lib/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/js/lib/angular/angular.min.js')
     script(src='/js/lib/d3/d3.min.js')
     script(src='/js/lib/angular-route/angular-route.min.js')
-    //- script(src='/js/lib/angular-animate/angular-animate.min.js')
     script(src='/js/lib/jquery/dist/jquery.min.js')
     script(src='/js/lib/bootstrap/dist/js/bootstrap.min.js')
     script(src='/js/app.js')
     script(src='/js/controllers.js')
+    style.
+
   body
     block content
