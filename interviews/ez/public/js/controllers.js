@@ -1,3 +1,4 @@
+'use strict';
 var controllers = angular.module('myApp.controllers', []);
 controllers.controller('Question1', function($scope, $http) {
     // d3 variables
@@ -10,48 +11,50 @@ controllers.controller('Question1', function($scope, $http) {
         width = $('.q1').width() - margin.left - margin.right,
         height = 300;
 
-    var svg = d3.select(".q1").append('svg')
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // create a svg for bar chart
+    var svg = d3.select('.q1').append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+    // transform 0-27 to a-z and ?
     function intToChar(i) {
         if (i == 26) return '?';
         return String.fromCharCode(97 + i);
     }
 
+    // to get the container's width for responsive chart
     $scope.getElementDimensions = function() {
-        return $('.q1').width()
+        return $('.q1').width();
     };
 
-    $scope.$watch($scope.getElementDimensions, function(newValue, oldValue) {
-        console.log(newValue);
-        d3.select('.q1 svg').attr("width", newValue)
+    // bind resize with bar chart re-render
+    // so resize the browser, the char will re-render and fit in
+    $scope.$watch($scope.getElementDimensions, function(newValue) {
+        d3.select('.q1 svg').attr('width', newValue);
         $scope.render();
     }, true);
-
     $(window).bind('resize', function() {
         $scope.$apply();
     });
 
+    // render the bar chart using d3, basicly creates rectangles
     $scope.render = function() {
-        // init
+        // init dataset and remove previous items before render
         var dataset = $scope.dataset;
+        svg.selectAll('*').remove();
         // responsive width
         var width = $('.q1').width() - margin.left - margin.right;
-        // remove previous items before render
-        svg.selectAll('*').remove();
         // edge case
         if (!dataset) return;
 
-        // setup x, y
+        // setup x, y ranges, a-z and 0 to max(dataset)
         var x = d3.scale.ordinal()
-            .rangeRoundBands([0, width], .1)
+            .rangeRoundBands([0, width], 0.1)
             .domain(dataset.map(function(d, i) {
                 return intToChar(i);
             }));
-
         var y = d3.scale.linear()
             .range([height, 0])
             .domain([0, d3.max(dataset, function(d) {
@@ -61,74 +64,73 @@ controllers.controller('Question1', function($scope, $http) {
         // setup xAxis and yAxis
         var xAxis = d3.svg.axis()
             .scale(x)
-            .orient("bottom");
+            .orient('bottom');
         var yAxis = d3.svg.axis()
             .scale(y)
-            .orient("left")
+            .orient('left');
 
 
-        // add title and helpinfo
-        svg.append("text")
-            .attr("x", (width / 2))
-            .attr("y", 0 - (margin.top / 2))
-            .attr("text-anchor", "middle")
-            .style("font-size", "24px")
-            .text("Static of " + $scope.userSearchKey)
-        svg.append("text")
-            .attr("x", (width / 2))
-            .attr("y", 0 - (margin.top / 4))
-            .attr("text-anchor", "middle")
-            .text("Mouse on bars to see details");
+        // add title and helpinfo to svg
+        svg.append('text')
+            .attr('x', (width / 2))
+            .attr('y', 0 - (margin.top / 2))
+            .attr('text-anchor', 'middle')
+            .style('font-size', '24px')
+            .text('Static of ' + $scope.userSearchKey);
+        svg.append('text')
+            .attr('x', (width / 2))
+            .attr('y', 0 - (margin.top / 4))
+            .attr('text-anchor', 'middle')
+            .text('Mouse on bars to see details');
 
-
-        // add x y axis
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
+        // add x y axis to svg
+        svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + height + ')')
             .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "y axis")
+        svg.append('g')
+            .attr('class', 'y axis')
             .call(yAxis)
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Count");
+            .append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 6)
+            .attr('dy', '.71em')
+            .style('text-anchor', 'end')
+            .text('Count');
 
-        //create the rectangles
-        svg.selectAll(".bar")
+        //add the rectangles
+        svg.selectAll('.bar')
             .data(dataset)
             .enter()
-            .append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d, i) {
+            .append('rect')
+            .attr('class', 'bar')
+            .attr('x', function(d, i) {
                 return x(intToChar(i));
             })
-            .attr("y", function(d) {
+            .attr('y', function(d) {
                 return y(d);
             })
-            .attr("width", x.rangeBand())
-            .attr("height", function(d) {
+            .attr('width', x.rangeBand())
+            .attr('height', function(d) {
                 return height - y(d);
             })
-            .append("title")
+            .append('title')
             .text(function(d, i) {
+                // here is the tooltip, using title attr of .bar
                 return intToChar(i) + ' occurs: ' + d + ' times';
             });
-    }
+    };
     $scope.search = function(userSearchKey) {
-        // show loading
-        $('.spinner').show();
         // set default
         userSearchKey = userSearchKey || 'barack';
-        // call the api
+        // show loading
+        $('.spinner').show();
+        // call the api, using jsonp, JSON_CALLBACK the default callback
         var url = 'https://api.angel.co/1/search?query=' + userSearchKey + '&type=User&callback=JSON_CALLBACK';
         $http({
             method: 'JSONP',
             url: url
-        }).success(function(data, status, header, config) {
+        }).success(function(data) {
             // init an int[27] to count characters
             var dataset = Array.apply(null, new Array(27)).map(Number.prototype.valueOf, 0);
             data.slice(0, Math.min(data.length, 5)).forEach(function(user) {
@@ -148,19 +150,21 @@ controllers.controller('Question1', function($scope, $http) {
                     }
                 }
             });
-            // call the render function // send userSearchKey for title
+            // call the render function
             $scope.dataset = dataset;
             $scope.render();
+            // hide the loading animation
             $('.spinner').hide();
         }).error(function() {
+            // hide the loading animation
             $('.spinner').hide();
         });
     };
-}).controller('Question2', function($scope, $http) {
+}).controller('Question2', function($scope) {
     $scope.get_missing_letters = function(sentence) {
-        // set default
+        // set a default
         sentence = sentence || '';
-        $scope.missing = ''
+        $scope.missing = '';
 
         // an int[26] to count characters
         var dataset = Array.apply(null, new Array(26)).map(Number.prototype.valueOf, 0);
@@ -174,14 +178,14 @@ controllers.controller('Question1', function($scope, $http) {
         }
         // iterate int[26] array, 0 means missing char
         dataset.forEach(function(d, i) {
-            if (d == 0) {
+            if (d === 0) {
                 // add this to missing buffer
                 // here use an array, then join should be better
                 $scope.missing += String.fromCharCode(97 + i);
             }
         });
     };
-}).controller('Question3', function($scope, $http) {
+}).controller('Question3', function($scope) {
     $scope.result = [];
     $scope.errs = [];
     $scope.go = function(step, initial) {
@@ -209,7 +213,19 @@ controllers.controller('Question1', function($scope, $http) {
         var state = {
             left: [],
             right: []
-        }
+        };
+        // define move functions
+        var move_left = function(l, i) {
+            state.left[i] = l - parseInt(step);
+            // out of boundry, set to null
+            if (state.left[i] < 0) state.left[i] = null;
+        };
+        var move_right = function(r, i) {
+            state.right[i] = parseInt(r) + parseInt(step);
+            // out of boundry, set to null
+            if (state.right[i] >= initial.length) state.right[i] = null;
+        };
+
         for (var i = 0; i < initial.length; i++) {
             if (initial.charAt(i) == 'L') {
                 state.left.push(i); // add the index to state.left
@@ -225,7 +241,7 @@ controllers.controller('Question1', function($scope, $http) {
             var current_state = '';
             var empty_flag = true;
             // dump the state to a result string, '..LR..' -> '..XX..'
-            for (var i = 0; i < initial.length; i++) {
+            for (i = 0; i < initial.length; i++) {
                 if (state.left.indexOf(i) >= 0 || state.right.indexOf(i) >= 0) {
                     // position i is in either left or right array
                     // the graph is not empty
@@ -245,18 +261,9 @@ controllers.controller('Question1', function($scope, $http) {
             // if empty_flag is true, means no particle in the graph, should break
             if (empty_flag) break;
 
-
             // move the particles for next time inteval
-            state.left.forEach(function(l, i) {
-                state.left[i] = l - parseInt(step);
-                // out of boundry, set to null
-                if (state.left[i] < 0) state.left[i] = null;
-            });
-            state.right.forEach(function(r, i) {
-                state.right[i] = parseInt(r) + parseInt(step);
-                // out of boundry, set to null
-                if (state.right[i] >= initial.length) state.right[i] = null;
-            });
+            state.left.forEach(move_left);
+            state.right.forEach(move_right);
         }
     };
 }).controller('navCtrl', ['$scope', '$location',
@@ -266,4 +273,4 @@ controllers.controller('Question1', function($scope, $http) {
             return page === currentRoute ? 'active' : '';
         };
     }
-]);;
+]);
