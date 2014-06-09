@@ -122,11 +122,11 @@ controllers.controller('Question1', function($scope, $http) {
     };
     $scope.search = function(userSearchKey) {
         // set default
-        userSearchKey = userSearchKey || 'barack';
+        $scope.userSearchKey = userSearchKey || 'barack';
         // show loading
         $('.spinner').show();
         // call the api, using jsonp, JSON_CALLBACK the default callback
-        var url = 'https://api.angel.co/1/search?query=' + userSearchKey + '&type=User&callback=JSON_CALLBACK';
+        var url = 'https://api.angel.co/1/search?query=' + $scope.userSearchKey + '&type=User&callback=JSON_CALLBACK';
         $http({
             method: 'JSONP',
             url: url
