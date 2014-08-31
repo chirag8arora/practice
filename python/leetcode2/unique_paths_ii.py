@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 27.8%
 # SOURCE URL: https://oj.leetcode.com/problems/unique-paths-ii/
 # 
@@ -7,17 +8,11 @@
 # For example,
 # There is one obstacle in the middle of a 3x3 grid as illustrated below.
 # 
-
 # [
-
 #   [0,0,0],
-
 #   [0,1,0],
-
 #   [0,0,0]
-
 # ]
-
 # 
 # The total number of unique paths is 2.
 # Note: m and n will be at most 100.

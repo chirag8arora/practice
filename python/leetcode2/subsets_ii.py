@@ -1,10 +1,9 @@
+# coding=utf-8
 # AC Rate: 26.9%
 # SOURCE URL: https://oj.leetcode.com/problems/subsets-ii/
 # 
 # 
-
 # Given a collection of integers that might contain duplicates, S, return all possible subsets.
-
 # 
 # Note:
 # 
@@ -13,30 +12,18 @@
 # 
 # 
 # 
-
 # For example,
-
 # If S = [1,2,2], a solution is:
-
 # 
 # 
-
 # [
-
 #   [2],
-
 #   [1],
-
 #   [1,2,2],
-
 #   [2,2],
-
 #   [1,2],
-
 #   []
-
 # ]
-
 # 
 # 
 

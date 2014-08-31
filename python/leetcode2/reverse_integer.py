@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 40.2%
 # SOURCE URL: https://oj.leetcode.com/problems/reverse-integer/
 # 
@@ -5,7 +6,6 @@
 # 
 # Example1: x =  123, return  321
 # Example2: x = -123, return -321
-
 # 
 # click to show spoilers.
 # Have you thought about this?

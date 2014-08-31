@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 29.3%
 # SOURCE URL: https://oj.leetcode.com/problems/length-of-last-word/
 # 
@@ -5,13 +6,9 @@
 # If the last word does not exist, return 0.
 # Note: A word is defined as a character sequence consists of non-space characters only.
 # 
-
 # For example, 
-
 # Given s = "Hello World",
-
 # return 5.
-
 # 
 # 
 

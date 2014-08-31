@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 27.9%
 # SOURCE URL: https://oj.leetcode.com/problems/valid-sudoku/
 # 
@@ -8,9 +9,7 @@
 # A partially filled sudoku which is valid.
 # 
 # Note:
-
 # A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
-
 # 
 # 
 

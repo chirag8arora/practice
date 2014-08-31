@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 27.2%
 # SOURCE URL: https://oj.leetcode.com/problems/count-and-say/
 # 
@@ -10,14 +11,10 @@
 # 21 is read off as "one 2, then one 1" or 1211.
 # 
 # 
-
 # Given an integer n, generate the nth sequence.
-
 # 
 # 
-
 # Note: The sequence of integers will be represented as a string.
-
 # 
 # 
 # 

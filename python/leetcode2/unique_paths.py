@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 31.4%
 # SOURCE URL: https://oj.leetcode.com/problems/unique-paths/
 # 
@@ -7,7 +8,6 @@
 # 
 # 
 # Above is a 3 x 7 grid. How many possible unique paths are there?
-
 # 
 # Note: m and n will be at most 100.
 # 

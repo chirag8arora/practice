@@ -1,3 +1,4 @@
+# coding=utf-8
 # AC Rate: 16.8%
 # SOURCE URL: https://oj.leetcode.com/problems/3sum/
 # 
@@ -9,17 +10,11 @@
 # 
 # 
 # 
-
 #     For example, given array S = {-1 0 1 2 -1 -4},
-
 # 
-
 #     A solution set is:
-
 #     (-1, 0, 1)
-
 #     (-1, -1, 2)
-
 # 
 # 
 
