@@ -13,7 +13,7 @@ Python code for leetcode problem set, cracking interview problem set, euler proj
 
 Java code for leetcode problem set, cracking interview problem set,  euler project problem set and basic data structures.
  - The 65 easist problem on leetcode (currently working on more)
- - Interesting problems on cracking interview (not much)
+ - Interesting problems on cracking interview, euler project, google code jam (not much)
  - Tree, Linked List data structures
 
 ### cpp
