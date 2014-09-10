@@ -5,7 +5,7 @@ Algorithm practice. Including academic projects.
 ### Python
 
 Python code for leetcode problem set, cracking interview problem set, euler project problem set and basic data structures.
- - The 65 easist problem on leetcode (currently working on more)
+ - The 126 easist problem on leetcode (currently working on more, and re-organize it)
  - Interesting problems on cracking interview
  - Tree, Heap, Linked List data structures
 
