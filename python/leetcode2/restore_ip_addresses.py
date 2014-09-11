@@ -21,24 +21,25 @@ class Solution:
         stack = [([], s)]
         while stack:
             comb, s = stack.pop()
+            lens = len(s)
+            lenc = len(comb)
             if not s:
-                if len(comb) == 4:
+                if lenc == 4:
                     res.append('.'.join(comb))
                 continue
             # children
-            if len(s) >= 1 and len(s) - 1 <= (4 - len(comb) - 1) * 3:
+            if lens >= 1 and lens + 3 * lenc <= 10 :
+                # can be 0
                 stack.append((comb+[s[:1]], s[1:]))
-            # if starts with 0 then no these
-            if len(s) >= 2 and len(s) - 2 <= (4 - len(comb) - 1) * 3:
-                if s[:2][0] != '0':
-                    # cannot starts with 0
-                    stack.append((comb+[s[:2]], s[2:]))
-            if len(s) >= 3 and len(s) - 3 <= (4 - len(comb) - 1) * 3 and int(s[:3]) <= 255:
-                if s[:3][0] != '0':
-                    stack.append((comb+[s[:3]], s[3:]))
+            if lens >= 2 and lens + 3 * lenc <= 11 and s[:2][0] != '0':
+                # cannot starts with 0
+                stack.append((comb+[s[:2]], s[2:]))
+            if lens >= 3 and lens + 3 * lenc <= 12 and int(s[:3]) <= 255 and s[:3][0] != '0':
+                # cannot starts with 0
+                stack.append((comb+[s[:3]], s[3:]))
         return res
 
 
 s = Solution()
-print s.restoreIpAddresses('25525511135'):
-print s.restoreIpAddresses('010010'):
+print s.restoreIpAddresses('25525511135')
+print s.restoreIpAddresses('010010')
