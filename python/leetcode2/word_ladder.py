@@ -42,7 +42,6 @@ class Solution:
         pq = []
         dict = set(dict)
         pq.append((1, start))
-        counter = 0
         while pq:
             depth, current = pq.pop(0)
             for j in self.change(current):
