@@ -36,33 +36,18 @@ class Solution:
     # @param root, a tree node
     # @return an integer
     def maxPathSum(self, root):
-        self.pathDP = {}
-        self.roadDP = {}
-        return self.helper(root)
-
-    def maxRoad(self, root):
-        #dfs
-        if not root:
-            return 0
-        if root not in self.roadDP:
-            self.roadDP[root] = max([
-                0,
-                root.val,
-                root.val + self.maxRoad(root.left),
-                root.val + self.maxRoad(root.right)
-            ])
-        return self.roadDP[root]
+        return self.helper(root)[1]
 
     def helper(self, root):
         if not root:
-            return float('-inf')
-        if root not in self.pathDP:
-            self.pathDP[root] = max([
-                self.helper(root.left),
-                self.helper(root.right),
-                self.maxRoad(root.left) + root.val + self.maxRoad(root.right)])
-        return self.pathDP[root]
+            return 0, float('-inf')
 
+        leftRoad, leftPath = self.helper(root.left)
+        rightRoad, rightPath = self.helper(root.right)
+
+        return (max([0, root.val, root.val + leftRoad, root.val + rightRoad]),
+            max([leftPath, rightPath, leftRoad + root.val + rightRoad]))
+            
 # THIS IS THE JAVA CODE AC
 # CANNTO GET MY PYTHON CODE AC
 # ANYONE HAVE IDEA?
