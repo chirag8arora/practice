@@ -38,22 +38,26 @@ class Solution:
         if p is None or s is None:
             return False
         if not s:
-            if not p or self.isStar(p):
-                return True
-        elif p and p[0] == '?':
-            if self.isMatch(s[1:], p[1:]):
-                return True
+            return (not p)
+        if not p:
+            return (not s)
+        if (p and p[0] == '?') or (s[0] == p[0]):
+            return self.isMatch(s[1:], p[1:])
         elif p and p[0] == '*':
-            if self.isMatch(s[1:], p):
-                return True
             for k in range(len(p)):
                 if p[k] != '*':
                     break
-            if self.isMatch(s, p[k:]):
+            p = p[k:]
+            if p == "*":
                 return True
-        elif p:
-            if s[0] == p[0] and self.isMatch(s[1:], p[1:]):
-                return True
+            for i in range(len(s)):
+                if i >= len(p):
+                    return False
+                if p[i] == '*':
+                    break
+                if s[i] == p[i] or p[i] == '?':
+                    i += 1
+            return self.isMatch(s[i:], p[i:])
         return False
 
 s = Solution()
@@ -64,10 +68,9 @@ print s.isMatch("aa", "*") == True
 print s.isMatch("aa", "a*") == True
 print s.isMatch("ab", "?*") == True
 print s.isMatch("aab", "c*a*b") == False
-
-
 print s.isMatch("aab", "c*a*b") == False
 print s.isMatch("", "") == True
 print s.isMatch(None, None) == False
 print s.isMatch("aaabbbaabaaaaababaabaaabbabbbbbbbbaabababbabbbaaaaba", "a*******b") == False
-print s.isMatch("abbaabbbbababaababababbabbbaaaabbbbaaabbbabaabbbbbabbbbabbabbaaabaaaabbbbbbaaabbabbbbababbbaaabbabbabb", "***b**a*a*b***b*a*b*bbb**baa*bba**b**bb***b*a*aab*a**")
+print s.isMatch("abbaabbbbababaababababbabbbaaaabbbbaaabbbabaabbbbbabbbbabbabbaaabaaaabbbbbbaaabbabbbbababbbaaabbabbabb",
+    "***b**a*a*b***b*a*b*bbb**baa*bba**b**bb***b*a*aab*a**") == True

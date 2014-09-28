@@ -32,7 +32,7 @@ class Solution:
     def sortHelper(self, head, length):
         h, _ = self.sortHelper(head, length/2)
         _, t = self.sortHelper(_.next, length/2)
-        self.merge(h, _)
+        self.merge()
         return h, t
 
     def get_length(self, head):

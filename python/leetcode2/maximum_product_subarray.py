@@ -1,3 +1,6 @@
+import unittest
+
+
 class Solution:
     # @param A, a list of integers
     # @return an integer
@@ -18,8 +21,16 @@ class Solution:
         return best
 
 
-s = Solution()
-print s.maxProduct([-2, 2, -2])
-print s.maxProduct([0, -2, 4])
-print s.maxProduct([0, -2, -2, 4])
-print s.maxProduct([1, -2, 2, 2, 4])
+class Test(unittest.TestCase):
+
+    def test(self):
+        s = Solution()
+        self.assertEqual(s.maxProduct([0.1, 0.1, 2]), 2)
+        self.assertEqual(s.maxProduct([-2, 2, -2]), 8)
+        self.assertEqual(s.maxProduct([0, -2, 4]), 4)
+        self.assertEqual(s.maxProduct([0, -2, -2, 4]), 16)
+        self.assertEqual(s.maxProduct([1, -2, 2, 2, 4]), 16)
+
+
+if __name__ == '__main__':
+    unittest.main()
