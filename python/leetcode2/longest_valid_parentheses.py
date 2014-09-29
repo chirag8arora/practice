@@ -11,47 +11,32 @@
 # Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
 #
 #
-
+import unittest
 
 class Solution:
     # @param s, a string
     # @return an integer
     def longestValidParentheses(self, s):
-        openn, close, best, current = 0, 0, 0, 0
-        for i in s:
-            if i == '(':
-                openn += 1
-            elif i == ')':
-                close += 1
-            if openn == close:
-                current = close
-                best = max(best, current)
-            elif openn > close:
-                pass
+        best, stack = 0, []
+        for k, v in enumerate(')' + s):
+            if v == ')' and stack and stack[-1][1] == '(':
+                stack.pop()
+                best = max(best, k - stack[-1][0])
             else:
-                current = 0
-                openn = 0
-                close = 0
-        # l = best
-        #
-        # openn, close, best, current = 0, 0, 0, 0
-        # for i in s[::-1]:
-        #     if i == '(':
-        #         close += 1
-        #     elif i == ')':
-        #         openn += 1
-        #     if openn >= close:
-        #         current = close
-        #         best = max(best, current)
-        #     else:
-        #         current = 0
-        #         openn = 0
-        #         close = 0
-        return best * 2
+                stack.append((k, v))
+        return best
 
-s = Solution()
-print s.longestValidParentheses('))))())()()(()')
-print s.longestValidParentheses('()(()')
-print s.longestValidParentheses('(()')
-print s.longestValidParentheses('(()()')
-print s.longestValidParentheses('()()()()()()()()()()(((()(()()())))))')
+
+class Test(unittest.TestCase):
+
+    def test(self):
+        s = Solution()
+        self.assertEqual(s.longestValidParentheses('))))())()()(()'), 4)
+        self.assertEqual(s.longestValidParentheses('()(()'), 2)
+        self.assertEqual(s.longestValidParentheses('(()'), 2)
+        self.assertEqual(s.longestValidParentheses('(()()'), 4)
+        self.assertEqual(s.longestValidParentheses('()()()()()()()()()()(((()(()()())))))'), 36)
+
+
+if __name__ == '__main__':
+    unittest.main()
