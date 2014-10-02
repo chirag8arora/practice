@@ -5,20 +5,23 @@ class Solution:
     # @param A, a list of integers
     # @return an integer
     def maxProduct(self, A):
-        best = A[0]
-        positive = max(A[0], 1)
-        negtive = min(A[0], 0)
-        for i in A[1:]:
-            p, n = positive, negtive
+        # subproblem maxProduct(A[n-1])
+        # optimal substructrure
+        # dp is applicable
+        m, n = 0, None
+        for i in A:
             if i > 0:
-                best = max(best, p * i)
-                positive = max(i, p * i, 1)
-                negtive = n * i
+                m = max(m, m * i, i)
+                if n:
+                    n = min(n, n * i)
             else:
-                best = max(best, n * i)
-                positive = max(n * i, 1)
-                negtive = min(i, p * i)
-        return best
+                if n:
+                    m = max(m, n * i)
+                    n = min(n, m * i)
+                else:
+                    n = i
+        return m
+
 
 
 class Test(unittest.TestCase):

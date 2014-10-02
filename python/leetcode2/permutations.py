@@ -26,4 +26,4 @@ class Solution:
                 num[start], num[i] = num[i], num[start]
 
 s = Solution()
-s.permute(0, [1,2,3])
+print s.permute(0, [1,2,3])
