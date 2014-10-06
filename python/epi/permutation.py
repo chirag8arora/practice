@@ -1,3 +1,5 @@
+import unittest
+
 # permutations
 class Permutations:
     def permutation(self, A):
@@ -16,31 +18,11 @@ class Permutations:
         return res
 
 
-p = Permutations()
-print p.permutation([2,3,4,7])
-
-# k = 0
-#     rest = [3, 5]
-#         k = 0
-#             rest = [5]
-#         [3, 5]
-#     [2, 3, 5]
-#         k = 1
-#             rest = [3]
-#         [5, 3]
-#     [2, 3, 5]
-
-k = 1
-k = 2
+class Test(unittest.TestCase):
+    def test(self):
+        p = Permutations()
+        print p.permutation([2,3,4,7])
 
 
-# 1, 2, 3, 4
-# 1, 2, 4, 3
-# 1, 3, 2, 4
-# 1, 3, 4, 2
-# 1, 4, 2, 3
-# 1, 4, 3, 2
-# 1 -> [2, 3, 4]
-# 2 -> [1, 3, 4]
-# 3 -> [1, 2, 4]
-# 4 -> [1, 2, 3]
+if __name__ == '__main__':
+    unittest.main()

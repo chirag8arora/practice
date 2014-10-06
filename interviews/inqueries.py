@@ -16,54 +16,55 @@ July 6 - July 7
 July 7 - July 9
 July 9 - July 14
 '''
-
-dp = {}
-
-def find_best(inqueries):
-    global dp
-    if not inqueries:
-        return 0
-    if len(inqueries) not in dp:
-        r1 = inqueries[0] + find_best(inqueries[2:])
-        r2 = find_best(inqueries[1:])
-        dp[len(inqueries)] = max([r1, r2])
-    return dp[len(inqueries)]
-
-def helper(inqueries):
-    global dp
-    dp = {}
-    return find_best(inqueries)
-
-def dfs(inqueries):
-    if not inqueries:
-        return 0
-    best = 0
-    stack = []
-    stack.append([1])
-    stack.append([0]) # [1]
-    while stack:
-        node = stack.pop() # [1, 0]
-        if len(node) == len(inqueries):
-            # todo sum
-            sum = 0
-            for k, v in enumerate(node):
-                if v == 1:
-                    sum += inqueries[k]
-            best = max(best, sum) # 9
-        else:
-            if node[-1] == 1:
-                stack.append(node + [0])
-            else:
-                stack.append(node + [0]) # [1] [0, 0]
-                stack.append(node + [1]) # [1]
-    return best
+import unittest
 
 
-i = range(10)
-print helper(i)
-print helper([5])
-print helper([5, 5, 5, 5, 5]) == 15
-print helper([5, 1, 2, 5]) == 10
-print helper([4, 9, 6]) == 10
-print helper([4, 11, 6]) == 11
-print helper([4, 10, 3, 1, 5]) == 15
+class Solution:
+
+    def find_best(self, inqueries):
+        a, b = 0, 0
+        for v in inqueries:
+            a, b = b, max(v + a, b)
+        return b
+
+# def dfs(inqueries):
+#     if not inqueries:
+#         return 0
+#     best = 0
+#     stack = []
+#     stack.append([1])
+#     stack.append([0]) # [1]
+#     while stack:
+#         node = stack.pop() # [1, 0]
+#         if len(node) == len(inqueries):
+#             # todo sum
+#             sum = 0
+#             for k, v in enumerate(node):
+#                 if v == 1:
+#                     sum += inqueries[k]
+#             best = max(best, sum) # 9
+#         else:
+#             if node[-1] == 1:
+#                 stack.append(node + [0])
+#             else:
+#                 stack.append(node + [0]) # [1] [0, 0]
+#                 stack.append(node + [1]) # [1]
+#     return best
+
+
+class Test(unittest.TestCase):
+
+    def test(self):
+        s = Solution()
+        self.assertEqual(s.find_best(range(1000)), 250000)
+        self.assertEqual(s.find_best(range(10)), 25)
+        self.assertEqual(s.find_best([5]), 5)
+        self.assertEqual(s.find_best([5, 5, 5, 5, 5]), 15)
+        self.assertEqual(s.find_best([4, 9, 6]), 10)
+        self.assertEqual(s.find_best([4, 11, 6]), 11)
+        self.assertEqual(s.find_best([4, 10, 3, 1, 5]), 15)
+
+
+
+if __name__ == "__main__":
+    unittest.main()
