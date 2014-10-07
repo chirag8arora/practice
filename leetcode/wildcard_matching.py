@@ -28,39 +28,33 @@ class Solution:
     # @param s, an input string
     # @param p, a pattern string
     # @return a boolean
-    def isStar(self, p):
-        for i in p:
-            if i != '*':
-                return False
-        return True
-
     def isMatch(self, s, p):
-        if p is None or s is None:
+        self.s = s
+        self.p = p
+        return self.helper(0, 0)
+
+    def helper(self, ps, pp):
+        if self.s is None or self.p is None:
             return False
-        if not s:
-            return (not p)
-        if not p:
-            return (not s)
-        if (p and p[0] == '?') or (s[0] == p[0]):
-            return self.isMatch(s[1:], p[1:])
-        elif p and p[0] == '*':
-            for k in range(len(p)):
-                if p[k] != '*':
-                    break
-            p = p[k:]
-            if p == "*":
+        if ps >= len(self.s) or pp >= len(self.p):
+            if pp >= len(self.p) and ps >= len(self.s):
                 return True
-            for i in range(len(s)):
-                if i >= len(p):
-                    return False
-                if p[i] == '*':
-                    break
-                if s[i] == p[i] or p[i] == '?':
-                    i += 1
-            return self.isMatch(s[i:], p[i:])
+            else:
+                return False
+
+        if self.s[ps] == self.p[pp] or self.p[pp] == '?':
+            return self.helper(ps+1, pp+1)
+        elif self.p[pp] == '*':
+            while pp < len(self.p) and self.p[pp] == '*':
+                pp += 1
+                if pp == len(self.p):
+                    return True
+            return self.helper(ps, pp) or self.helper(ps+1, pp-1)
         return False
 
+
 s = Solution()
+print s.isMatch("a","aa") == False
 print s.isMatch("aa","a") == False
 print s.isMatch("aa","aa") == True
 print s.isMatch("aaa","aa") == False
@@ -74,3 +68,4 @@ print s.isMatch(None, None) == False
 print s.isMatch("aaabbbaabaaaaababaabaaabbabbbbbbbbaabababbabbbaaaaba", "a*******b") == False
 print s.isMatch("abbaabbbbababaababababbabbbaaaabbbbaaabbbabaabbbbbabbbbabbabbaaabaaaabbbbbbaaabbabbbbababbbaaabbabbabb",
     "***b**a*a*b***b*a*b*bbb**baa*bba**b**bb***b*a*aab*a**") == True
+print s.isMatch('abbbabaaabbabbabbabaabbbaabaaaabbbabaaabbbbbaaababbb', '**a*b*aa***b***bbb*ba*a') == False

@@ -17,7 +17,7 @@
 #     (-1, -1, 2)
 #
 #
-
+import unittest
 
 class Solution:
     # @return a list of lists of length 3, [[val1,val2,val3]]
@@ -43,6 +43,15 @@ class Solution:
                     res.append([v, n[0], n[1]])
         return res
 
-s = Solution()
-print s.threeSum([0, 0, 0, 0])
-print s.threeSum([-1, 0, 0, 3, 1, 2, -1, -4])
+
+class Test(unittest.TestCase):
+
+    def test(self):
+        s = Solution()
+        self.assertEqual(s.threeSum([0, 0, 0, 0]), [[0, 0, 0]])
+        self.assertEqual(s.threeSum([-1, 0, 0, 3, 1, 2, -1, -4]),
+            [[-4, 1, 3], [-1, 0, 1], [-1, -1, 2]])
+
+
+if __name__ == '__main__':
+    unittest.main()
