@@ -2,7 +2,8 @@
 # AC Rate: 16.9%
 # https://oj.leetcode.com/problems/3sum/
 
-# Given an array S of n integers, are there elements a, b, c in S such that a + b
+# Given an array S of n integers,
+# are there elements a, b, c in S such that a + b
 # Note:
 # Elements in a triplet (a,b,c) must be in non-descending order. (ie, a ≤ b ≤
 # The solution set must not contain duplicate triplets.
@@ -17,9 +18,7 @@ class Solution:
     # @return a list of lists of length 3, [[val1,val2,val3]]
 
     def twoSum(self, num, target, start):
-        dic = {}
-        res = []
-        already = set()
+        dic, res, already = {}, [], set()
         for i in range(start, len(num)):
             if target - num[i] in dic and num[i] not in already:
                 already.add(num[i])
@@ -44,7 +43,7 @@ class Test(unittest.TestCase):
         s = Solution()
         self.assertEqual(s.threeSum([0, 0, 0, 0]), [[0, 0, 0]])
         self.assertEqual(s.threeSum([-1, 0, 0, 3, 1, 2, -1, -4]),
-            [[-4, 1, 3], [-1, 0, 1], [-1, -1, 2]])
+                         [[-4, 1, 3], [-1, 0, 1], [-1, -1, 2]])
 
 
 if __name__ == '__main__':

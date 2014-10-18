@@ -33,12 +33,12 @@ class Test(unittest.TestCase):
 
     def test(self):
         s = Solution()
-        self.assertEqual(s.findMin([1,2,3,4,5]), 1)
-        self.assertEqual(s.findMin([5,1,2,3,4]), 1)
-        self.assertEqual(s.findMin([2,2,2,1,1]), 1)
-        self.assertEqual(s.findMin([1,1,1,1,1]), 1)
-        self.assertEqual(s.findMin([1,2,3,1,1]), 1)
-        self.assertEqual(s.findMin([2,3,1,1,1]), 1)
+        self.assertEqual(s.findMin([1, 2, 3, 4, 5]), 1)
+        self.assertEqual(s.findMin([5, 1, 2, 3, 4]), 1)
+        self.assertEqual(s.findMin([2, 2, 2, 1, 1]), 1)
+        self.assertEqual(s.findMin([1, 1, 1, 1, 1]), 1)
+        self.assertEqual(s.findMin([1, 2, 3, 1, 1]), 1)
+        self.assertEqual(s.findMin([2, 3, 1, 1, 1]), 1)
 
 
 if __name__ == '__main__':
